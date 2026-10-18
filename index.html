@@ -7,173 +7,179 @@
 <meta name="description" content="Uutisia, tuloksia ja tapahtumia Lappeenrannan urheilusta.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F5F5F6; --surface:#FFFFFF; --ink:#101012; --muted:#5C5C66; --line:#DEDEE2;
-  --accent:#C9411F; --accent-ink:#FFFFFF; --ph:#E9E9EC; --stroke:#B9B9C0; --stripe:rgba(0,0,0,.05);
-  --head:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
-  --body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --paper:#F3F0E8; --ink:#111111; --red:#C81E17; --gold:#F2B705; --muted:#4D4A44;
+  --head:"Bebas Neue",Impact,"Arial Narrow",sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bw:2px;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0E0E10; --surface:#17171A; --ink:#F2F2F4; --muted:#A0A0AA; --line:#26262B;
-    --accent:#FF6A45; --accent-ink:#0E0E10; --ph:#1A1A1E; --stroke:#3A3A42; --stripe:rgba(255,255,255,.04);
-    color-scheme:dark;
+    --paper:#0E0E0E; --ink:#F3F0E8; --red:#FF5247; --muted:#B5B0A6; color-scheme:dark;
   }
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased;
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 a{color:inherit;text-decoration:none}
-button{font:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
-.wrap{width:min(1240px,100% - 40px);margin-inline:auto}
+a,button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{width:min(1280px,100% - 32px);margin-inline:auto}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 main{outline:none;min-height:60dvh}
+h1,h2,h3{font-family:var(--head);font-weight:400;margin:0;letter-spacing:.01em}
 
-/* Header */
-.top{padding:22px 0 0}
-.bar{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.mark{font:800 clamp(1.7rem,4.6vw,2.6rem)/1 var(--head);letter-spacing:-.04em}
-.mark i{font-style:normal;color:var(--accent);margin:0 .06em}
-.tagline{font:400 .8rem var(--mono);color:var(--muted);letter-spacing:.02em}
-.sports{display:flex;gap:8px;overflow-x:auto;padding:18px 0 16px;margin:0;list-style:none;scrollbar-width:none}
-.sports::-webkit-scrollbar{display:none}
-.chip{display:inline-block;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-weight:500;font-size:.92rem;background:var(--surface);transition:transform .12s,background .15s,color .15s}
-.chip:hover{border-color:var(--ink)}
-.chip:active{transform:scale(.97)}
-.chip[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-
-/* Results ticker */
-.ticker{background:var(--ink);color:var(--bg);overflow:hidden;font:500 .82rem var(--mono)}
-.ticker-track{display:flex;width:max-content;animation:run 38s linear infinite}
+/* Ticker */
+.ticker{background:#111;color:#F3F0E8;overflow:hidden;font:600 .85rem/1 var(--body);letter-spacing:.04em;text-transform:uppercase}
+.ticker-track{display:flex;width:max-content;animation:run 40s linear infinite}
 .ticker:hover .ticker-track{animation-play-state:paused}
-.ticker span{padding:10px 26px;white-space:nowrap}
-.ticker b{color:var(--accent);font-weight:500;margin-right:10px}
-.ticker em{font-style:normal;margin:0 8px;color:var(--accent)}
+.ticker span{padding:12px 28px;white-space:nowrap;border-right:1px solid #444}
+.ticker b{color:var(--gold);font-weight:700;margin-right:12px}
+.ticker em{font:400 1.25rem/1 var(--head);font-style:normal;color:var(--gold);margin:0 10px;letter-spacing:.03em}
 @keyframes run{to{transform:translateX(-50%)}}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ticker{background:var(--surface);color:var(--ink)}}
 
-/* Shared bits */
-.meta{display:flex;align-items:center;gap:12px;margin:0 0 10px;font:400 .8rem var(--mono);color:var(--muted)}
-.tag{display:inline-block;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:2px 10px;font:500 .72rem var(--mono);letter-spacing:.03em;white-space:nowrap}
-.media{position:relative;aspect-ratio:16/10;background:var(--ph);overflow:hidden;border-radius:4px}
-.media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-a:hover .media img{transform:scale(1.035)}
-.ph{position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px 18px;background:repeating-linear-gradient(135deg,transparent 0 14px,var(--stripe) 14px 15px)}
-.ph span{font:800 clamp(2.2rem,7vw,5rem)/.9 var(--head);letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px var(--stroke)}
-h2.sec{font:800 clamp(1.7rem,3.6vw,2.4rem)/1.05 var(--head);letter-spacing:-.03em;margin:0}
+/* Masthead */
+.mast{border-bottom:var(--bw) solid var(--ink)}
+.mast-top{display:flex;justify-content:space-between;gap:16px;padding:12px 0;font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--ink);flex-wrap:wrap}
+.logo{display:block;padding:8px 0 4px;font:400 clamp(2.6rem,9.5vw,8.5rem)/.88 var(--head);letter-spacing:.005em;text-wrap:balance;overflow-wrap:anywhere}
+.logo i{font-style:normal;color:var(--red)}
+.sports{display:flex;margin:0;padding:0;list-style:none;overflow-x:auto;border-top:var(--bw) solid var(--ink);scrollbar-width:none}
+.sports::-webkit-scrollbar{display:none}
+.sports li{flex:none}
+.chip{display:block;padding:12px 20px;font:400 1.35rem/1 var(--head);letter-spacing:.04em;border-right:1px solid var(--ink);white-space:nowrap;min-height:44px}
+.chip:hover{background:var(--gold);color:#111}
+.chip:active{transform:translateY(1px)}
+.chip[aria-current="page"]{background:var(--ink);color:var(--paper)}
+
+/* Shared */
+.tag{display:inline-block;background:var(--ink);color:var(--paper);padding:3px 9px;font:700 .72rem/1.4 var(--body);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.meta{display:flex;align-items:center;gap:12px;margin:0 0 12px;font-size:.85rem;font-weight:600;color:var(--muted);letter-spacing:.03em}
+.media{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:var(--bw) solid var(--ink);background:#111}
+.media img{width:100%;height:100%;object-fit:cover;display:block}
+.ph{position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 18px;background-image:repeating-linear-gradient(135deg,transparent 0 18px,rgba(0,0,0,.07) 18px 20px)}
+.ph span{font:400 clamp(2.2rem,8vw,7rem)/.82 var(--head);text-transform:uppercase;letter-spacing:.005em;overflow-wrap:anywhere;max-width:100%}
+.t0{background-color:var(--red);color:var(--paper)}
+.t1{background-color:#111;color:var(--gold)}
+.t2{background-color:var(--gold);color:#111}
+.t0 .ph span{color:#F3F0E8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .t0 .ph span{color:#0E0E0E}}
+.sec-title{font:400 clamp(2rem,5vw,3.4rem)/1 var(--head)}
+.band{background:#111;color:#F3F0E8;padding:14px 0}
+.band h2{font:400 clamp(1.8rem,4vw,2.6rem)/1 var(--head);color:var(--gold);letter-spacing:.04em}
 
 /* Reveal */
-.rv{animation:up .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 70ms)}
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rv{animation:up .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 60ms)}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-/* Front page top */
-.topgrid{display:grid;gap:clamp(32px,5vw,72px);padding:clamp(28px,4vw,52px) 0 clamp(48px,7vw,96px)}
-@media (min-width:960px){.topgrid{grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);align-items:start}}
-.lead .media{aspect-ratio:16/10}
-.lead-head{position:relative;margin:-2.4rem 9% 0 0;padding:1.2rem 1.4rem 0 0;background:var(--bg)}
-@media (max-width:600px){.lead-head{margin-right:0;padding-right:0;margin-top:-1.4rem}}
-.lead h2{font:800 clamp(2rem,4.8vw,3.7rem)/1.02 var(--head);letter-spacing:-.035em;margin:0 0 14px;text-wrap:balance}
-.lead a:hover h2{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px;text-decoration-color:var(--accent)}
-.lead .ing{margin:0;color:var(--muted);max-width:52ch}
-
-.latest{border-top:2px solid var(--ink);padding-top:14px}
-.latest h2{font:500 .8rem var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px;color:var(--muted)}
+/* Front */
+.front{display:grid;border-bottom:var(--bw) solid var(--ink)}
+@media (min-width:980px){.front{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}.front>.latest{border-left:var(--bw) solid var(--ink)}}
+.lead a{display:block}
+.lead .body{padding:20px 0 28px}
+@media (min-width:980px){.lead .body{padding-right:28px}}
+.lead h2{font-size:clamp(2.6rem,6.4vw,5.6rem);line-height:.92;margin:0 0 14px;text-wrap:balance}
+.lead a:hover h2{color:var(--red);text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:6px}
+.lead .ing{margin:0;max-width:54ch;font-size:1.15rem;color:var(--muted)}
+.latest{padding:20px 0 0}
+@media (min-width:980px){.latest{padding:20px 0 0 24px}}
+.latest h2{font:700 .8rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px}
 .latest ol{list-style:none;margin:0;padding:0}
-.latest li{border-bottom:1px solid var(--line)}
-.latest a{display:grid;gap:6px;padding:18px 0}
-.latest a strong{font:700 1.2rem/1.25 var(--head);letter-spacing:-.015em}
-.latest a:hover strong{color:var(--accent)}
+.latest li{border-top:var(--bw) solid var(--ink)}
+.latest a{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;padding:16px 0;min-height:44px}
+.latest .num{grid-row:span 2;font:400 3.4rem/.85 var(--head);color:var(--red)}
+.latest strong{font:400 1.7rem/1 var(--head);letter-spacing:.01em;text-wrap:balance}
+.latest a:hover strong{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
 .latest a:active{transform:translateY(1px)}
+.latest .meta{margin:0}
 
 /* Events */
-.events{border-top:1px solid var(--line);padding:clamp(48px,7vw,96px) 0}
-.split{display:grid;gap:32px}
-@media (min-width:900px){.split{grid-template-columns:1fr 2fr;gap:80px}.split>div:first-child{position:sticky;top:24px;align-self:start}}
-.split p.lead-text{color:var(--muted);max-width:30ch;margin:14px 0 0}
-.evlist{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
-.ev{display:grid;grid-template-columns:auto 1fr auto;gap:8px 24px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
-.ev .date{display:flex;flex-direction:column;align-items:center;min-width:64px;font:500 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}
-.ev .date b{font:800 2.6rem/1 var(--head);letter-spacing:-.04em;color:var(--ink)}
-.ev h3{margin:0;font:700 1.25rem/1.25 var(--head);letter-spacing:-.015em}
-.ev p{margin:2px 0 0;color:var(--muted);font-size:.95rem}
-@media (max-width:560px){.ev{grid-template-columns:auto 1fr}.ev .tag{grid-column:2;justify-self:start}}
+.evlist{list-style:none;margin:0;padding:0}
+.ev{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px 22px;padding:0 0 0 0;border-bottom:var(--bw) solid var(--ink)}
+.ev .date{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:92px;align-self:stretch;padding:12px 10px;background:var(--gold);color:#111;border-right:var(--bw) solid var(--ink)}
+.ev .date b{font:400 3.4rem/.85 var(--head)}
+.ev .date span{font:700 .75rem/1 var(--body);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.ev h3{font:400 clamp(1.6rem,3vw,2.2rem)/1.05 var(--head);letter-spacing:.01em}
+.ev p{margin:2px 0 0;color:var(--muted);font-weight:600}
+.ev .tag{margin-right:14px}
+@media (max-width:560px){.ev{grid-template-columns:auto 1fr}.ev .tag{grid-column:2;justify-self:start;margin:0 0 14px}}
+.evwrap{border-bottom:var(--bw) solid var(--ink)}
+.evnote{padding:16px 0;color:var(--muted)}
 
-/* More stories grid */
-.more{border-top:1px solid var(--line);padding:clamp(48px,7vw,96px) 0}
-.more-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:32px;gap:16px}
-.grid{display:grid;gap:44px 32px;grid-template-columns:1fr}
-@media (min-width:800px){
-  .grid{grid-template-columns:repeat(12,minmax(0,1fr))}
-  .grid>article{grid-column:span 4}
-  .grid>article:nth-child(5n+1){grid-column:span 7}
-  .grid>article:nth-child(5n+2){grid-column:span 5}
-  .grid>article:nth-child(5n+1) .media{aspect-ratio:16/9}
-  .grid>article:nth-child(5n+2) .media{aspect-ratio:4/3}
-  .grid>article:nth-child(n+3):nth-child(-n+5) .media{aspect-ratio:1/1}
-}
-.grid article a{display:block}
-.grid article a:active{transform:translateY(1px)}
-.grid .media{margin-bottom:16px}
-.grid h3{font:700 clamp(1.25rem,2.4vw,1.6rem)/1.15 var(--head);letter-spacing:-.025em;margin:0 0 8px;text-wrap:balance}
-.grid a:hover h3{color:var(--accent)}
-.grid p.ing{margin:0;color:var(--muted);font-size:.98rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+/* Stories grid */
+.more{padding-bottom:clamp(48px,7vw,96px)}
+.grid{display:grid;grid-template-columns:1fr;border-left:var(--bw) solid var(--ink);margin-left:0}
+@media (min-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.grid{grid-template-columns:repeat(3,1fr)}}
+.grid article{border-right:var(--bw) solid var(--ink);border-bottom:var(--bw) solid var(--ink)}
+.grid a{display:flex;flex-direction:column;height:100%;transition:background .12s,color .12s}
+.grid a:hover{background:var(--ink);color:var(--paper)}
+.grid a:hover .meta,.grid a:hover .ing{color:var(--paper)}
+.grid a:hover .tag{background:var(--gold);color:#111}
+.grid a:active{transform:translateY(1px)}
+.grid .media{aspect-ratio:3/2}
+.grid .txt{padding:16px 18px 24px}
+.grid h3{font-size:clamp(1.9rem,3vw,2.4rem);line-height:.98;margin:0 0 8px;text-wrap:balance}
+.grid .ing{margin:0;color:var(--muted);font-size:1rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.grid-wrap{margin-top:0;border-top:var(--bw) solid var(--ink)}
+.grid-wrap .grid{border-left:0}
+.grid-wrap .grid article:first-child{}
 
-/* Sport page heading */
-.pagehead{padding:clamp(36px,6vw,72px) 0 12px}
-.pagehead h1{font:800 clamp(3rem,10vw,8rem)/.9 var(--head);letter-spacing:-.05em;margin:0}
-.pagehead p{color:var(--muted);margin:14px 0 0}
+/* Sport page */
+.pagehead{padding:28px 0 20px;border-bottom:var(--bw) solid var(--ink)}
+.pagehead h1{font:400 clamp(4.5rem,18vw,15rem)/.8 var(--head);letter-spacing:.005em}
+.pagehead p{margin:12px 0 0;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;font-size:.9rem}
 
 /* Article */
-.story{padding:clamp(28px,4vw,56px) 0 clamp(56px,8vw,112px);display:grid;gap:32px}
-@media (min-width:960px){.story{grid-template-columns:220px minmax(0,1fr);gap:72px}.story aside{position:sticky;top:24px;align-self:start}}
-.back{display:inline-flex;gap:8px;align-items:center;font:500 .85rem var(--mono);color:var(--muted);margin-bottom:22px}
-.back::before{content:"";width:18px;height:1.5px;background:currentColor}
-.back:hover{color:var(--accent)}
-.story aside dl{margin:0;display:grid;gap:14px;font-size:.95rem}
-.story aside dt{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.story aside dd{margin:2px 0 0}
-.story h1{font:800 clamp(2.2rem,6vw,4.6rem)/1 var(--head);letter-spacing:-.04em;margin:0 0 22px;text-wrap:balance;max-width:16ch}
-.story .ing{font-size:clamp(1.2rem,2.2vw,1.5rem);line-height:1.45;color:var(--muted);max-width:44ch;margin:0 0 36px}
-.story .media{margin-bottom:40px;aspect-ratio:16/9}
-.body p{font-size:1.15rem;line-height:1.75;max-width:62ch;margin:0 0 1.2em}
+.story{padding:28px 0 clamp(48px,8vw,104px);display:grid;gap:28px}
+@media (min-width:960px){.story{grid-template-columns:240px minmax(0,1fr);gap:56px}.story aside{position:sticky;top:20px;align-self:start}}
+.back{display:inline-block;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem;padding:10px 0;margin-bottom:12px;min-height:44px;border-bottom:var(--bw) solid var(--ink)}
+.back:hover{color:var(--red)}
+.story aside dl{margin:0;display:grid;gap:0;border-top:var(--bw) solid var(--ink)}
+.story aside dl>div{padding:12px 0;border-bottom:1px solid var(--ink)}
+.story aside dt{font:700 .72rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.story aside dd{margin:6px 0 0;font-weight:600}
+.story h1{font-size:clamp(3rem,8.2vw,7rem);line-height:.9;margin:0 0 22px;text-wrap:balance}
+.story .ing{font-size:clamp(1.25rem,2.2vw,1.55rem);line-height:1.4;font-weight:600;max-width:46ch;margin:0 0 30px;border-left:8px solid var(--red);padding-left:18px}
+.story .media{margin-bottom:32px;aspect-ratio:16/9;border:var(--bw) solid var(--ink)}
+.body-text p{font-size:1.2rem;line-height:1.75;max-width:62ch;margin:0 0 1.2em}
+.body-text p:first-child::first-line{font-weight:700}
 
-.empty{border:1px dashed var(--line);border-radius:6px;padding:40px 28px;color:var(--muted);max-width:52ch}
-.empty h3{margin:0 0 8px;color:var(--ink);font:700 1.3rem var(--head)}
-.empty p{margin:0}
+.empty{border:var(--bw) dashed var(--ink);padding:32px 24px;max-width:56ch;margin:32px 0}
+.empty h3{font:400 2rem/1 var(--head);margin:0 0 8px}
+.empty p{margin:0;color:var(--muted)}
 
-footer{border-top:1px solid var(--line);padding:40px 0 56px;margin-top:24px}
-footer .wrap{display:grid;gap:12px}
+footer{background:#111;color:#F3F0E8;padding:44px 0 56px}
+footer .wrap{display:grid;gap:18px}
 @media (min-width:800px){footer .wrap{grid-template-columns:1fr auto;align-items:end}}
-footer p{margin:0;color:var(--muted)}
-footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-.02em;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:3px;text-underline-offset:6px}
+footer p{margin:0;color:#C9C5BC}
+footer a.mail{display:inline-block;font:400 clamp(2rem,6vw,4.4rem)/1 var(--head);color:var(--gold);text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px;word-break:break-word;min-height:44px}
+footer a.mail:hover{color:#fff}
+footer :focus-visible{outline-color:var(--gold)}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .rv{animation:none}
   .ticker{overflow-x:auto}
   .ticker-track{animation:none}
-  .media img{transition:none}
+  .grid a{transition:none}
 }
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap">
-    <div class="bar">
-      <a class="mark" href="#/" aria-label="Sport Lappeenranta, etusivu">Sport<i>/</i>Lappeenranta</a>
-      <span class="tagline">Paikalliset urheilu-uutiset</span>
-    </div>
-    <ul class="sports" id="sports" aria-label="Lajit"></ul>
-  </div>
-</header>
-
 <div class="ticker" id="ticker" aria-label="Tuoreimmat tulokset" hidden></div>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><span>Paikalliset urheilu-uutiset</span><span id="today"></span></div>
+    <a class="logo" href="#/" aria-label="Sport Lappeenranta, etusivu">SPORT <i>/</i> LAPPEENRANTA</a>
+  </div>
+  <ul class="sports" id="sports" aria-label="Lajit"></ul>
+</header>
 
 <main id="main" tabindex="-1"><noscript><div class="wrap"><p>Sivu vaatii JavaScriptin toimiakseen.</p></div></noscript></main>
 
@@ -183,7 +189,7 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
       <p>Onko sinulla vinkki tai tapahtuma, josta pitäisi kertoa?</p>
       <a class="mail" href="mailto:toimitus@esimerkki.fi">toimitus@esimerkki.fi</a>
     </div>
-    <p>© 2026 Sport Lappeenranta</p>
+    <p>&copy; 2026 Sport Lappeenranta</p>
   </div>
 </footer>
 
@@ -200,6 +206,9 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
   function short(iso){var p=String(iso).split('-');return (+p[2])+'.'+(+p[1])+'.'}
   function today(){var t=new Date();return t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate())}
   function byDateDesc(a,b){return a.pvm<b.pvm?1:a.pvm>b.pvm?-1:0}
+  function tone(s){var h=0;String(s).split('').forEach(function(c){h=(h*31+c.charCodeAt(0))%3});return 't'+h}
+
+  try{document.getElementById('today').textContent=new Date().toLocaleDateString('fi-FI',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){}
 
   var NEWS = (window.UUTISET||[]).slice().sort(byDateDesc);
   var EVENTS = (window.TAPAHTUMAT||[]).slice().sort(function(a,b){return a.pvm>b.pvm?1:-1});
@@ -214,7 +223,7 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
 
   function media(a){
     if(a.kuva) return '<div class="media"><img src="'+esc(a.kuva)+'" alt="" loading="lazy"></div>';
-    return '<div class="media"><div class="ph" aria-hidden="true"><span>'+esc(a.laji)+'</span></div></div>';
+    return '<div class="media '+tone(a.laji)+'"><div class="ph" aria-hidden="true"><span>'+esc(a.laji)+'</span></div></div>';
   }
 
   function renderNav(active){
@@ -229,18 +238,20 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
     var el = document.getElementById('ticker');
     if(!RESULTS.length){el.hidden=true;return}
     var row = RESULTS.map(function(r){
-      return '<span><b>'+esc(r.laji).toUpperCase()+'</b>'+esc(r.koti)+'<em>'+esc(r.tulos)+'</em>'+esc(r.vieras)+'</span>';
+      return '<span><b>'+esc(r.laji)+'</b>'+esc(r.koti)+'<em>'+esc(r.tulos)+'</em>'+esc(r.vieras)+'</span>';
     }).join('');
     el.innerHTML = '<div class="ticker-track">'+row+row+'</div>';
     el.hidden = false;
   }
 
   function latestItem(a,i){
-    return '<li class="rv" style="--i:'+(i+2)+'"><a href="#/juttu/'+esc(a.id)+'"><div class="meta"><span class="tag">'+esc(a.laji)+'</span><time>'+short(a.pvm)+'</time></div><strong>'+esc(a.otsikko)+'</strong></a></li>';
+    return '<li class="rv" style="--i:'+(i+2)+'"><a href="#/juttu/'+esc(a.id)+'"><span class="num" aria-hidden="true">'+pad(i+1)+'</span>'+
+      '<strong>'+esc(a.otsikko)+'</strong><div class="meta"><span class="tag">'+esc(a.laji)+'</span><time>'+short(a.pvm)+'</time></div></a></li>';
   }
 
   function gridItem(a,i){
-    return '<article class="rv" style="--i:'+(i%5)+'"><a href="#/juttu/'+esc(a.id)+'">'+media(a)+'<div class="meta"><span class="tag">'+esc(a.laji)+'</span><time>'+fmt(a.pvm)+'</time></div><h3>'+esc(a.otsikko)+'</h3><p class="ing">'+esc(a.ingressi)+'</p></a></article>';
+    return '<article class="rv" style="--i:'+(i%6)+'"><a href="#/juttu/'+esc(a.id)+'">'+media(a)+
+      '<div class="txt"><div class="meta"><span class="tag">'+esc(a.laji)+'</span><time>'+fmt(a.pvm)+'</time></div><h3>'+esc(a.otsikko)+'</h3><p class="ing">'+esc(a.ingressi)+'</p></div></a></article>';
   }
 
   function eventsBlock(sport){
@@ -248,14 +259,14 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
     var list = EVENTS.filter(function(e){return e.pvm>=t && (!sport||e.laji===sport)});
     var rows;
     if(!list.length){
-      rows = '<div class="empty"><h3>Ei tulevia tapahtumia</h3><p>Uudet tapahtumat ilmestyvät tähän, kun ne on lisätty.</p></div>';
+      rows = '<div class="wrap"><div class="empty"><h3>Ei tulevia tapahtumia</h3><p>Uudet tapahtumat ilmestyvät tähän, kun ne on lisätty.</p></div></div>';
     } else {
-      rows = '<ul class="evlist">'+list.map(function(e){
+      rows = '<ul class="evlist wrap" style="border-top:0">'+list.map(function(e){
         var p = e.pvm.split('-');
-        return '<li class="ev"><div class="date"><b>'+(+p[2])+'</b><span>'+MONTHS[+p[1]-1]+'</span></div><div><h3>'+esc(e.nimi)+'</h3><p>'+esc([e.aika,e.paikka].filter(Boolean).join(' · '))+'</p></div><span class="tag">'+esc(e.laji)+'</span></li>';
+        return '<li class="ev"><div class="date"><b>'+(+p[2])+'</b><span>'+MONTHS[+p[1]-1]+'</span></div><div style="padding:14px 0"><h3>'+esc(e.nimi)+'</h3><p>'+esc([e.aika,e.paikka].filter(Boolean).join(' · '))+'</p></div><span class="tag">'+esc(e.laji)+'</span></li>';
       }).join('')+'</ul>';
     }
-    return '<section class="events"><div class="wrap split"><div><h2 class="sec">Tulevat tapahtumat</h2><p class="lead-text">Ottelut, kilpailut ja muut tapahtumat Lappeenrannassa.</p></div><div>'+rows+'</div></div></section>';
+    return '<section aria-labelledby="evh"><div class="band"><div class="wrap"><h2 id="evh">Ottelukalenteri</h2></div></div>'+rows+'</section>';
   }
 
   function home(sport){
@@ -266,7 +277,7 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
 
     if(!list.length){
       html += '<div class="wrap">'+(sport?'<div class="pagehead"><h1>'+esc(sport)+'</h1></div>':'<h1 class="sr">'+SITE+'</h1>')+
-        '<div class="empty" style="margin:32px 0 64px"><h3>Ei vielä uutisia</h3><p>Tähän lajiin ei ole vielä lisätty juttuja. Palaa pian.</p></div></div>';
+        '<div class="empty"><h3>Ei vielä uutisia</h3><p>Tähän lajiin ei ole vielä lisätty juttuja. Palaa pian.</p></div></div>';
       html += eventsBlock(sport);
       main.innerHTML = html;
       return;
@@ -274,25 +285,24 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
 
     var lead = list[0], latest = list.slice(1,5), rest = list.slice(5);
 
-    html += '<div class="wrap">';
     if(sport){
-      html += '<div class="pagehead rv"><h1>'+esc(sport)+'</h1><p>'+list.length+' '+(list.length===1?'juttu':'juttua')+'</p></div>';
+      html += '<div class="wrap"><div class="pagehead rv"><h1>'+esc(sport)+'</h1><p>'+list.length+' '+(list.length===1?'juttu':'juttua')+'</p></div></div>';
     } else {
       html += '<h1 class="sr">'+SITE+' – uutiset</h1>';
     }
-    html += '<div class="topgrid">'+
+    html += '<div class="wrap"><div class="front">'+
       '<article class="lead rv" style="--i:1"><a href="#/juttu/'+esc(lead.id)+'">'+media(lead)+
-      '<div class="lead-head"><div class="meta"><span class="tag">'+esc(lead.laji)+'</span><time>'+fmt(lead.pvm)+'</time></div>'+
+      '<div class="body"><div class="meta"><span class="tag">'+esc(lead.laji)+'</span><time>'+fmt(lead.pvm)+'</time></div>'+
       '<h2>'+esc(lead.otsikko)+'</h2><p class="ing">'+esc(lead.ingressi)+'</p></div></a></article>';
     if(latest.length){
-      html += '<aside class="latest rv" style="--i:2"><h2>Tuoreimmat</h2><ol>'+latest.map(latestItem).join('')+'</ol></aside>';
+      html += '<aside class="latest rv" style="--i:2" aria-labelledby="lat"><h2 id="lat">Tuoreimmat</h2><ol>'+latest.map(latestItem).join('')+'</ol></aside>';
     }
     html += '</div></div>';
 
     html += eventsBlock(sport);
 
     if(rest.length){
-      html += '<section class="more"><div class="wrap"><div class="more-head"><h2 class="sec">Lisää juttuja</h2></div><div class="grid">'+rest.map(gridItem).join('')+'</div></div></section>';
+      html += '<section class="more" aria-labelledby="mh"><div class="band"><div class="wrap"><h2 id="mh">Lisää juttuja</h2></div></div><div class="wrap"><div class="grid">'+rest.map(gridItem).join('')+'</div></div></section>';
     }
     main.innerHTML = html;
   }
@@ -302,7 +312,7 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
     if(!a){
       renderNav(null);
       document.title = 'Juttua ei löytynyt – '+SITE;
-      main.innerHTML = '<div class="wrap" style="padding:56px 0"><a class="back" href="#/">Etusivulle</a><div class="empty"><h3>Juttua ei löytynyt</h3><p>Juttu on voitu poistaa tai osoite on virheellinen.</p></div></div>';
+      main.innerHTML = '<div class="wrap" style="padding:32px 0"><a class="back" href="#/">Etusivulle</a><div class="empty"><h3>Juttua ei löytynyt</h3><p>Juttu on voitu poistaa tai osoite on virheellinen.</p></div></div>';
       return;
     }
     renderNav(a.laji);
@@ -310,17 +320,17 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
     var paras = String(a.teksti||'').split(/\n{2,}/).filter(Boolean).map(function(p){return '<p>'+esc(p)+'</p>'}).join('');
     var more = NEWS.filter(function(x){return x.id!==a.id}).slice(0,3);
     var html = '<div class="wrap"><article class="story">'+
-      '<aside class="rv"><a class="back" href="#/">Etusivulle</a><dl>'+
+      '<aside class="rv"><a class="back" href="#/">&larr; Etusivulle</a><dl>'+
         '<div><dt>Laji</dt><dd><a class="tag" href="#/laji/'+encodeURIComponent(a.laji)+'">'+esc(a.laji)+'</a></dd></div>'+
         '<div><dt>Julkaistu</dt><dd><time>'+fmt(a.pvm)+'</time></dd></div>'+
         (a.kirjoittaja?'<div><dt>Kirjoittaja</dt><dd>'+esc(a.kirjoittaja)+'</dd></div>':'')+
       '</dl></aside>'+
       '<div class="rv" style="--i:1"><h1>'+esc(a.otsikko)+'</h1>'+
         (a.ingressi?'<p class="ing">'+esc(a.ingressi)+'</p>':'')+
-        media(a)+'<div class="body">'+paras+'</div></div>'+
+        media(a)+'<div class="body-text">'+paras+'</div></div>'+
     '</article></div>';
     if(more.length){
-      html += '<section class="more"><div class="wrap"><div class="more-head"><h2 class="sec">Lue myös</h2></div><div class="grid">'+more.map(gridItem).join('')+'</div></div></section>';
+      html += '<section class="more" aria-labelledby="mh"><div class="band"><div class="wrap"><h2 id="mh">Lue myös</h2></div></div><div class="wrap"><div class="grid">'+more.map(gridItem).join('')+'</div></div></section>';
     }
     main.innerHTML = html;
   }
@@ -328,7 +338,7 @@ footer a.mail{font:700 clamp(1.3rem,3vw,1.9rem)/1.1 var(--head);letter-spacing:-
   function route(first){
     var parts = location.hash.replace(/^#\/?/,'').split('/');
     if(!window.UUTISET){
-      main.innerHTML = '<div class="wrap" style="padding:56px 0"><div class="empty"><h3>Uutisia ei voitu ladata</h3><p>Yritä hetken päästä uudelleen.</p></div></div>';
+      main.innerHTML = '<div class="wrap"><div class="empty"><h3>Uutisia ei voitu ladata</h3><p>Yritä hetken päästä uudelleen.</p></div></div>';
       return;
     }
     if(parts[0]==='juttu' && parts[1]) article(decodeURIComponent(parts[1]));
